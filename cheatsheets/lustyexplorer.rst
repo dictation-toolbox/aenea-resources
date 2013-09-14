@@ -2,10 +2,12 @@
 Lusty Explorer
 =========================
 Usage:::
-                 <Leader>lf  - Opens the filesystem explorer.
-                 <Leader>lr  - Opens the filesystem explorer from the directory of the current file.
-                 <Leader>lb  - Opens the buffer explorer.
-                 <Leader>lg  - Opens the buffer grep, for searching through all loaded buffers
+
+                 <Leader>lf  - files
+                 <Leader>lr  - cur file dir
+                 <Leader>lb  - buffers
+                 <Leader>lg  - buffer grep
+                 "rusty [absolute] [name]" - open files
 
 You can also use the commands:::
 

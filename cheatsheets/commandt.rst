@@ -44,8 +44,5 @@ has focus:::
     <Up>        select previous file in the file listing
     <C-f>       flush the cache
     <C-c>       cancel (dismisses file listing)
-
-The following is also available on terminals which support it:::
-
     <Esc>       cancel (dismisses file listing)
 
