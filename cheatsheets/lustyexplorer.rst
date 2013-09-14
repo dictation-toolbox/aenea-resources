@@ -9,13 +9,6 @@ Usage:::
                  <Leader>lg  - buffer grep
                  "rusty [absolute] [name]" - open files
 
-You can also use the commands:::
-
-                 ":LustyFilesystemExplorer [optional-path]"
-                 ":LustyFilesystemExplorerFromHere"
-                 ":LustyBufferExplorer"
-                 ":LustyBufferGrep"
-
 As you type, the table updates for possible matches using a
 fuzzy matching algorithm (or regex matching, in the case of
 grep).  Special keys include:::
