@@ -60,7 +60,7 @@ Motions::
 
     # EasyMotion
     "easy [lope | yope |
-          elope | iyope][ert]",
+           elope | iyope][ert]",
 
 Commands::
 
@@ -70,6 +70,9 @@ Commands::
     "plap":Key("P"),
     "plop":Key("p"),
     "ditto":Text("."),
+    "ripple":macro
+    "rec ripple <nato>":record macro
+    "end ripple":stop recording macro
   spec = "[<count>] [reg <nato>] <cmd>"
 
 Operators::
