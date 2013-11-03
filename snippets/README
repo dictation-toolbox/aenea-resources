@@ -1,0 +1,8 @@
+This directory is for language specific syntax files for VIM using the
+plug-in UltiSnips (https://github.com/SirVer/ultisnips). Currently, the
+verbal equivalent slip inside grammar/verbal_emacs/insertions.py, though
+the long-term plan is to implement some kind of plug-in management into
+verbal_emacs.
+
+These are more work-in-progress than most of the project, and subject
+to change.

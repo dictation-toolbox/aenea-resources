@@ -1,0 +1,181 @@
+###########################################################################
+#                            TextMate Snippets                            #
+###########################################################################
+
+# (based on https://github.com/SirVer/ultisnips/blob/master/UltiSnips/c.snippets)
+# (relatively minor changes -- included to aid in understanding my C++ voice
+# macros).
+
+# I made essentially two sets of changes, both related to how the vim module is
+# implemented making typing over selections difficult. For snippets where the
+# default text was useless (eg, /* code here */), I simply removed it. For
+# snippets where it was useful, I added a second snippet prefixed with AE that
+# removes all default values. That way I can still use the original snippet when
+# typing, but voice will activate the other snippet which will not have default
+# values that it is difficult to type over.
+
+# I also wrote my own random include guard snippet replacing the one from the
+# original file, and changed the brace style to match that I use in my code (it
+# would be nice to have a configuration variable choose this).
+
+snippet once "random ifndef guards"
+`!p
+import uuid
+if not snip.c:
+  guid = '_' + uuid.uuid4().get_hex()
+guard = t[1].replace(' ', '_').upper() + guid
+snip.rv = '#ifdef %s\n#define %s' % (guard, guard)
+`
+
+$0/* ${1:`!p snip.rv = snip.basename.upper()`} */
+
+
+#endif  /* `!p snip.rv = guard` */
+endsnippet
+
+snippet def "#define ..."
+#define ${1}
+endsnippet
+
+snippet ifndef "#ifndef ... #define ... #endif"
+#ifndef ${1/([A-Za-z0-9_]+).*/$1/}
+#define ${1:SYMBOL} ${2:value}
+#endif
+endsnippet
+
+snippet #if "#if #endif" !b
+#if ${1:0}
+${VISUAL}${0:${VISUAL/(.*)/(?1::code)/}}
+#endif
+endsnippet
+
+snippet AEinc "#include local header (inc)"
+#include "${1:`!p snip.rv = snip.basename + '.h'`}"
+endsnippet
+
+snippet inc "#include local header (inc)"
+#include "${1:`!p snip.rv = snip.basename + '.h'`}"
+endsnippet
+
+snippet AEInc "#include <> (Inc)"
+#include <${1:.h}>
+endsnippet
+
+snippet Inc "#include <> (Inc)"
+#include <${1:.h}>
+endsnippet
+
+snippet mark "#pragma mark (mark)"
+#if 0
+${1:#pragma mark -
+}#pragma mark $2
+#endif
+
+$0
+endsnippet
+
+snippet main "main() (main)"
+int main(int argc, char* argv[]) {
+	${VISUAL}${0:${VISUAL/(.*)/(?1::)/}}
+	return 0;
+}
+endsnippet
+
+snippet for "for loop (for)"
+for (${2:i} = 0; $2 < ${1:count}; ${3:++$2}) {
+	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
+}
+endsnippet
+
+snippet AEfor "for loop (for)"
+for (${1} ${2} = 0; $2 < ${3}; ${4:++$2}) {
+	${VISUAL}${0:${VISUAL/(.*)/(?1::)/}}
+}
+endsnippet
+
+snippet AEfori "for int loop (fori)"
+for (int ${1} = 0; $1 < ${2}; ${3:++$1}) {
+	${VISUAL}${0:${VISUAL/(.*)/(?1::)/}}
+}
+endsnippet
+
+snippet enum "Enumeration"
+enum ${1:name} { $0 };
+endsnippet
+
+snippet td "Typedef"
+typedef ${1:int} ${2:MyCustomType};
+endsnippet
+
+snippet wh "while loop"
+while (${1}) {
+	${VISUAL}${0:${VISUAL/(.*)/(?1::)/}}
+}
+endsnippet
+
+snippet do "do...while loop (do)"
+do {
+	${VISUAL}${0:${VISUAL/(.*)/(?1::)/}}
+} while(${1});
+endsnippet
+
+snippet fprintf "fprintf ..."
+fprintf(${1:stderr}, "${2:%s}\n"${2/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$3${2/([^%]|%%)*(%.)?.*/(?2:\);)/}
+endsnippet
+
+snippet if "if .. (if)"
+if (${1}) {
+	${VISUAL}${2:${VISUAL/(.*)/(?1::)/}}
+}$0
+endsnippet
+
+snippet el "else .. (else)"
+else {
+	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
+}
+endsnippet
+
+snippet ife "if .. else (ife)"
+if (${1}) {
+	${2}
+} else {
+	${3}
+}
+endsnippet
+
+snippet printf "printf .. (printf)"
+printf("${1:%s}\n"${1/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$2${1/([^%]|%%)*(%.)?.*/(?2:\);)/}
+endsnippet
+
+snippet AEst "struct"
+struct ${1} {
+	${0}
+};
+endsnippet
+
+snippet st "struct"
+struct ${1:`!p snip.rv = (snip.basename or "name") + "_t"`} {
+	${0}
+};
+endsnippet
+
+snippet AEfun "function" b
+${1} ${2}(${3}) {
+	${VISUAL}${0:${VISUAL/(.*)/(?1::)/}}
+}
+endsnippet
+snippet fun "function" b
+${1:void} ${2:function_name}(${3}) {
+	${VISUAL}${0:${VISUAL/(.*)/(?1::)/}}
+}
+endsnippet
+
+snippet AEfund "function declaration" b
+${1} ${2}(${3});
+endsnippet
+
+snippet fund "function declaration" b
+${1:void} ${2:function_name}(${3});
+endsnippet
+
+# vim:ft=snippets:

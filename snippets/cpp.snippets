@@ -1,0 +1,206 @@
+extends c
+
+###########################################################################
+
+snippet cl "class .. (class)"
+class ${1:`!p snip.rv = snip.basename or "name"`} {
+  public:$2
+  private:$3
+};$0
+endsnippet
+
+snippet AEcl "class .. (class)"
+class ${1} {
+  public:$2
+  private:$3
+};$0
+endsnippet
+
+###########################################################################
+
+snippet ns "namespace .. (namespace)"
+namespace${1/.+/ /m}${1:`!p snip.rv = snip.basename or "name"`} {
+	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
+}${1/.+/  \/\/ namespace /m}$1${1/.+//m}
+endsnippet
+
+snippet AEns "namespace .. (namespace)"
+namespace${1/.+/ /m}${1} {
+	${VISUAL}${0:${VISUAL/(.*)/(?1::)/}}
+}${1/.+/  \/\/ namespace /m}$1${1/.+//m}
+endsnippet
+
+###########################################################################
+# STL structures
+
+snippet map "std::unordered_map (unordered_map)" w
+std::unordered_map<${1}, ${2}>$0
+endsnippet
+
+snippet rbtm "std::map (map)" w
+std::map<${1}, ${2}>$0
+endsnippet
+
+snippet set "std::unordered_set (unordered_set)" w
+std::unordered_set<${1}>$0
+endsnippet
+
+snippet rbts "std::set (set)" w
+std::set<${1:key}>$0
+endsnippet
+
+snippet vc "std::vector (v)" w
+std::vector<${1}>$0
+endsnippet
+
+snippet dq "std::deque (v)" w
+std::deque<${1}>$0
+endsnippet
+
+snippet sr "std::string (string)" w
+std::string$0
+endsnippet
+
+snippet pr "std::pair (pair)" w
+std::pair<${1}, ${2}>$0
+endsnippet
+
+snippet tp "std::tuple (tuple)" w
+std::tuple<${1}>$0
+endsnippet
+
+###########################################################################
+# STL smart pointers
+
+snippet wp "weak_ptr" w
+std::weak_ptr<$1>$0
+endsnippet
+
+snippet sp "shared_ptr" w
+std::shared_ptr<$1>$0
+endsnippet
+
+snippet up "unique_ptr" w
+std::unique_ptr<$1>$0
+endsnippet
+
+###########################################################################
+# STL streams
+
+snippet sd "sd" w
+std::
+endsnippet
+
+snippet el "el" w
+std::endl;$0
+endsnippet
+
+snippet ce
+std::cerr << $0
+endsnippet
+
+snippet cee
+std::cerr << $1 << std::endl;$0
+endsnippet
+
+snippet co
+std::cout << $0
+endsnippet
+
+snippet coe
+std::cout << $1 << std::endl;$0
+endsnippet
+
+###########################################################################
+# Commonly used declarator operators and shortcuts.
+
+snippet csr "const std::string& (string)" w
+const std::string&$0
+endsnippet
+
+snippet csir "const String&" w
+const String&$0
+endsnippet
+
+snippet sir "String " w
+String$0
+endsnippet
+
+snippet cpr "crr" w
+const $1*$0
+endsnippet
+
+snippet crr "crr" w
+const $1&$0
+endsnippet
+
+snippet cupr "unique_ptr" w
+const std::unique_ptr<$1>&$0
+endsnippet
+
+###########################################################################
+# Commonly used container stuff
+
+snippet ao "$1.begin(), $1.end() (beginend)" w
+${1:v}${1/^.*?(-)?(>)?$/(?2::(?1:>:.))/}begin(), $1${1/^.*?(-)?(>)?$/(?2::(?1:>:.))/}end()
+endsnippet
+
+snippet bins "std::back_inserter(foo)" w
+std::back_inserter($1)$0
+endsnippet
+
+snippet sins "std::inserter(foo)" w
+std::inserter(${1:v}${1/^.*?(-)?(>)?$/(?2::(?1:>:))/}, $1${1/^.*?(-)?(>)?$/(?2::(?1:>:.))/}end())
+endsnippet
+
+###########################################################################
+# Loops
+
+snippet forr
+for (${1} : ${2}) {
+  $0
+}
+endsnippet
+
+snippet fora
+for (auto& ${1} : ${2}) {
+  $0
+}
+endsnippet
+
+snippet foro
+for (const auto& ${1} : ${2}) {
+  $0
+}
+endsnippet
+
+###########################################################################
+# Misc
+
+snippet bs "bs" w
+boost::
+endsnippet
+
+snippet meth "member function" b
+${1:void} ${2:`!p snip.rv = snip.basename`}::${3:method_name}($4) {
+  $0
+}
+endsnippet
+
+snippet sr2
+$1::$0
+endsnippet
+
+snippet sr3
+$1::$2::$0
+endsnippet
+
+snippet sr4
+$1::$2::$3::$0
+endsnippet
+
+snippet sr5
+$1::$2::$3::$4::$0
+endsnippet
+
+# vim:ft=snippets:
